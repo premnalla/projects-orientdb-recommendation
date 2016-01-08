@@ -1,0 +1,11 @@
+Steps
+
+1. Load review data into db
+time java -cp ./recommendatation-engine-1-jar-with-dependencies.jar com.prem.FoodReviewLoader -c "remote:localhost/test" -l ./finefoods.txt 
+
+2. Generate ratigs.csv - this generate unique integers for unique products and buyers
+time java -cp ./recommendatation-engine-1-jar-with-dependencies.jar com.prem.FoodReviewLoader -c "remote:localhost/test" -d
+
+3. Run SPARK/MLlib's ALS algorith to train and make predictions
+/opt/spark-1.6.0/bin/spark-submit --class org.apache.spark.examples.mllib.AmazonProductRecommendation2 --master local[1] ./recommendatation-engine-1-jar-with-dependencies.jar -u A1D87F6ZCVE5NK -c "remote:localhost/test"
+

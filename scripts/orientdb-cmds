@@ -1,0 +1,42 @@
+# orient db commands for project
+#
+# Stop the server
+#
+disconnect
+connect plocal:../databases/test admin admin
+drop database test
+disconnect
+#
+# Start the server
+#
+create database remote:localhost/test root root plocal graph
+#
+create class Buyer extends V
+create property Buyer.name string
+create property Buyer.profileName string
+create index Buyer.name on Buyer(name) UNIQUE
+#
+create class BuyerHash extends V
+create property BuyerHash.hashId integer
+create index BuyerHash.hashId on BuyerHash(hashId) UNIQUE
+#
+create class Product extends V
+create property Product.name string
+create index Product.name on Product(name) UNIQUE
+#
+create class ProductHash extends V
+create property ProductHash.hashId integer
+create index ProductHash.hashId on ProductHash(hashId) UNIQUE
+#
+create class reviewed extends E
+create property reviewed.score decimal
+create property reviewed.time DATE
+create property reviewed.summary string
+create property reviewed.text string
+create property reviewed.helpful integer
+create property reviewed.unhelpful integer
+create index reviewed.text on reviewed(text) fulltext
+#
+create class hashBelongsToProduct extends E
+#
+create class hashBelongsToBuyer extends E
